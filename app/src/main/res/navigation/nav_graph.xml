@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@+id/StudentListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.ubb_pdm.catalin_vancea.FirstFragment"
+        android:id="@+id/StudentListFragment"
+        android:name="com.ubb_pdm.catalin_vancea.todo.students.StudentListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_student_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_StudentListFragment_to_StudentEditFragment"
+            app:destination="@id/StudentEditFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.ubb_pdm.catalin_vancea.SecondFragment"
+        android:id="@+id/StudentEditFragment"
+        android:name="com.ubb_pdm.catalin_vancea.todo.student.StudentEditFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_student_edit">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_StudentEditFragment_to_StudentListFragment"
+            app:destination="@id/StudentListFragment" />
     </fragment>
 </navigation>

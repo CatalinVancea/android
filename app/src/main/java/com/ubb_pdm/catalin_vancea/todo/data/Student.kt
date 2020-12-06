@@ -12,7 +12,8 @@ data class Student(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "graduated") var graduated: Boolean,
     @ColumnInfo(name = "grade") var grade: Int,
-    @ColumnInfo(name = "enrollment") var enrollment: String
+    @ColumnInfo(name = "enrollment") var enrollment: String,
+    @ColumnInfo(name = "version") var version: Int
 ) {
     override fun toString(): String = id + name
 }

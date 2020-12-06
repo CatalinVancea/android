@@ -29,7 +29,7 @@ abstract class TodoDatabase : RoomDatabase() {
                 Room.databaseBuilder(
                     context.applicationContext,
                     TodoDatabase::class.java,
-                    "todo_db"
+                    "todo_db2"
                 )
                     .addCallback(WordDatabaseCallback(scope))
                     .build()
@@ -52,8 +52,8 @@ abstract class TodoDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(studentDao: StudentDao) {
             studentDao.deleteAll()
-            val student = Student("1", "nameTest", false, 2, "");
-            studentDao.insert(student)
+            //val student = Student("1", "nameTest", false, 2, "");
+            //studentDao.insert(student)
         }
     }
 

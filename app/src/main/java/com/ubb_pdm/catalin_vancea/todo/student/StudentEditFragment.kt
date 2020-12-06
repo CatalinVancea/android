@@ -26,6 +26,7 @@ class StudentEditFragment : Fragment() {
         const val STUDENT_GRADE = "STUDENT_GRADE"
         const val STUDENT_GRADUATED = "STUDENT_GRADUATED"
         const val STUDENT_ENROLLMENT = "STUDENT_ENROLLMENT"
+        const val STUDENT_VERSION = "STUDENT_VERSION"
     }
 
     private lateinit var viewModel: StudentEditViewModel
@@ -34,6 +35,7 @@ class StudentEditFragment : Fragment() {
     private var studentGrade: Int? = null
     private var studentGraduated: Boolean? = null
     private var studentEnrollment: String? = null
+    private var studentVersion: Int? = null
     private var student: Student? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +45,10 @@ class StudentEditFragment : Fragment() {
             if (it.containsKey(STUDENT_ID)) {
                 studentId = it.getString(STUDENT_ID).toString()
                 studentName = it.getString(STUDENT_NAME).toString()
-                studentGrade = it.getInt(STUDENT_GRADE).toString().toInt()
-                studentGraduated = it.getBoolean(STUDENT_GRADUATED).toString().toBoolean()
+                studentGrade = it.getString(STUDENT_GRADE).toString().toInt();
+                studentGraduated = it.getString(STUDENT_GRADUATED).toString()?.toBoolean()
                 studentEnrollment = it.getString(STUDENT_ENROLLMENT).toString()
+                studentVersion = it.getString(STUDENT_VERSION).toString().toInt()
             }
         }
     }
@@ -66,21 +69,37 @@ class StudentEditFragment : Fragment() {
         student_graduated.setText(studentGraduated.toString())
         student_grade.setText(studentGrade.toString())
         student_enrollment.setText(studentEnrollment)
+        student_version.setText(studentVersion.toString())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.v(TAG, "onActivityCreated")
         setupViewModel()
-        fab.setOnClickListener {
+        fab_save.setOnClickListener {
             Log.v(TAG, "save student")
             viewModel.saveOrUpdateStudent(
                 Student(
-                    "",
+                student_id.text.toString(),
                 student_name.text.toString(),
                 student_graduated.text.toString().toBoolean(),
                 student_grade.text.toString().toInt(),
-                student_enrollment.text.toString()
+                student_enrollment.text.toString(),
+                student_version.text.toString().toInt()
+                )
+            )
+        }
+
+        fab_delete.setOnClickListener {
+            Log.v(TAG, "delete student")
+            viewModel.deleteStudent(
+                Student(
+                    student_id.text.toString(),
+                    student_name.text.toString(),
+                    student_graduated.text.toString().toBoolean(),
+                    student_grade.text.toString().toInt(),
+                    student_enrollment.text.toString(),
+                    student_version.text.toString().toInt()
                 )
             )
         }
@@ -126,7 +145,7 @@ class StudentEditFragment : Fragment() {
 
         val id = studentId
         if(id==null){
-            student = Student("","",false,0,"")
+            student = Student("","",false,0,"", 1)
         }
         if (id != null) {
             viewModel.getStudentById(id)

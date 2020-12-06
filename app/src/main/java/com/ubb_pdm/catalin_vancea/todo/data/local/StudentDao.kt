@@ -15,6 +15,9 @@ interface StudentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(student: Student)
 
+    @Query("DELETE FROM students WHERE id=:id ")
+    suspend fun delete(id: String)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(student: Student)
 

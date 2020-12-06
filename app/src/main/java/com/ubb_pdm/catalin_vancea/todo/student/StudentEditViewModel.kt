@@ -81,21 +81,23 @@ class StudentEditViewModel(application: Application) : AndroidViewModel(applicat
 
     fun saveOrUpdateStudent(student: Student) {
         viewModelScope.launch {
-            Log.v(TAG, "saveOrUpdateItem...");
+            Log.v(TAG, "saveOrUpdateStudent...");
             mutableFetching.value = true
             mutableException.value = null
             val result: Result<Student>
             if (student.id.isNotEmpty()) {
+                Log.d(TAG, "saveOrUpdateStudent update");
                 result = studentRepository.update(student)
             } else {
+                Log.d(TAG, "saveOrUpdateStudent save");
                 result = studentRepository.save(student)
             }
             when(result) {
                 is Result.Success -> {
-                    Log.d(TAG, "saveOrUpdateItem succeeded");
+                    Log.d(TAG, "saveOrUpdateStudent succeeded");
                 }
                 is Result.Error -> {
-                    Log.w(TAG, "saveOrUpdateItem failed", result.exception);
+                    Log.w(TAG, "saveOrUpdateStudent failed", result.exception);
                     mutableException.value = result.exception
                 }
             }
@@ -105,4 +107,25 @@ class StudentEditViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
+    fun deleteStudent(student: Student) {
+        viewModelScope.launch {
+            Log.v(TAG, "DeleteStudent...");
+            mutableFetching.value = true
+            mutableException.value = null
+            val result: Result<Student>
+            result = studentRepository.delete(student)
+
+            when(result) {
+                is Result.Success -> {
+                    Log.d(TAG, "DeleteStudent succeeded");
+                }
+                is Result.Error -> {
+                    Log.w(TAG, "DeleteStudent failed", result.exception);
+                    mutableException.value = result.exception
+                }
+            }
+            mutableCompleted.value = true
+            mutableFetching.value = false
+        }
+    }
 }

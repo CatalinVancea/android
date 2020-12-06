@@ -1,5 +1,6 @@
 package com.ubb_pdm.catalin_vancea.auth.login
 
+import android.content.Context
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
@@ -21,10 +22,10 @@ class LoginViewModel : ViewModel() {
     private val mutableLoginResult = MutableLiveData<Result<TokenHolder>>()
     val loginResult: LiveData<Result<TokenHolder>> = mutableLoginResult
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, context: Context) {
         viewModelScope.launch {
             Log.v(TAG, "login...");
-            mutableLoginResult.value = AuthRepository.login(username, password)
+            mutableLoginResult.value = AuthRepository.login(username, password, context)
         }
     }
 

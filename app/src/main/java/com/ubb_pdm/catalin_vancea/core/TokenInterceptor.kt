@@ -1,5 +1,6 @@
 package com.ubb_pdm.catalin_vancea.core
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -12,6 +13,8 @@ class TokenInterceptor constructor() : Interceptor {
         if (token == null) {
             return chain.proceed(original)
         }
+
+        Log.i(TAG, "intercept   $token")
         val requestBuilder = original.newBuilder()
             .addHeader("Authorization", "Bearer $token")
             .url(originalUrl)

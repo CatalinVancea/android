@@ -20,4 +20,14 @@
     <string name="sign_in">Sign In</string>
 
 
+
+    <string name="student_id">ID: </string>
+    <string name="student_name">name(text): </string>
+    <string name="student_graduated">graduated(bool): </string>
+    <string name="student_grade">grade(int): </string>
+    <string name="student_enrollment">enrollment(date): </string>
+    <string name="student_version">version(int): </string>
+
+    <string name="inactive_network">offline</string>
+    <string name="active_network">online</string>
 </resources>

@@ -32,11 +32,14 @@ class StudentListAdapter(
         onStudentClick = View.OnClickListener { view ->
             val student = view.tag as Student
             fragment.findNavController().navigate(R.id.StudentEditFragment, Bundle().apply {
+                Log.v(TAG, "-----------------------------------------------------------------------------------------------")
+                Log.v(TAG, student.id.toString())
                 putString(StudentEditFragment.STUDENT_ID, student.id.toString())
                 putString(StudentEditFragment.STUDENT_NAME, student.name.toString())
                 putString(StudentEditFragment.STUDENT_GRADE, student.grade.toString())
                 putString(StudentEditFragment.STUDENT_GRADUATED, student.graduated.toString())
                 putString(StudentEditFragment.STUDENT_ENROLLMENT, student.enrollment.toString())
+                putString(StudentEditFragment.STUDENT_VERSION, student.version.toString())
             })
         }
     }

@@ -30,6 +30,7 @@ class StudentRepository(private val studentDao: StudentDao) {
 
     suspend fun save(student: Student): Result<Student> {
         Log.i(TAG, "save")
+        
         try {
             val createdStudent = StudentApi.service.create(student)
             studentDao.insert(createdStudent)

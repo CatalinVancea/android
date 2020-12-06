@@ -16,6 +16,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.ubb_pdm.catalin_vancea.R
 import com.ubb_pdm.catalin_vancea.core.TAG
+import com.ubb_pdm.catalin_vancea.todo.data.Student
 import kotlinx.android.synthetic.main.fragment_student_edit.*
 
 class StudentEditFragment : Fragment() {
@@ -33,6 +34,7 @@ class StudentEditFragment : Fragment() {
     private var studentGrade: Int? = null
     private var studentGraduated: Boolean? = null
     private var studentEnrollment: String? = null
+    private var student: Student? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,18 +75,21 @@ class StudentEditFragment : Fragment() {
         fab.setOnClickListener {
             Log.v(TAG, "save student")
             viewModel.saveOrUpdateStudent(
+                Student(
+                    "",
                 student_name.text.toString(),
                 student_graduated.text.toString().toBoolean(),
                 student_grade.text.toString().toInt(),
                 student_enrollment.text.toString()
+                )
             )
-
         }
     }
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(StudentEditViewModel::class.java)
 
+        /*
         viewModel.student.observe(viewLifecycleOwner, Observer { student ->
 
             Log.v(TAG, "update student")
@@ -93,6 +98,7 @@ class StudentEditFragment : Fragment() {
             student_grade.setText(student.grade.toString())
             student_enrollment.setText(student.enrollment)
         })
+         */
 
         viewModel.fetching.observe(viewLifecycleOwner, Observer { fetching ->
             Log.v(TAG, "update fetching")
@@ -108,7 +114,6 @@ class StudentEditFragment : Fragment() {
                     Toast.makeText(parentActivity, message, Toast.LENGTH_SHORT).show()
                 }
             }
-
         })
 
         viewModel.completed.observe(viewLifecycleOwner, Observer { completed ->
@@ -120,8 +125,11 @@ class StudentEditFragment : Fragment() {
         })
 
         val id = studentId
+        if(id==null){
+            student = Student("","",false,0,"")
+        }
         if (id != null) {
-            viewModel.loadStudent(id)
+            viewModel.getStudentById(id)
         }
     }
 

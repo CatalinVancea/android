@@ -1,6 +1,7 @@
 package com.ubb_pdm.catalin_vancea.todo.data.remote
 
 import com.google.gson.GsonBuilder
+import com.ubb_pdm.catalin_vancea.core.Api
 import com.ubb_pdm.catalin_vancea.todo.data.Student
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,17 +28,5 @@ object StudentApi {
         suspend fun update(@Path("id") studentId: String, @Body student: Student): Student
     }
 
-    private val client: OkHttpClient = OkHttpClient.Builder().build()
-
-    private var gson = GsonBuilder()
-        .setLenient()
-        .create()
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(URL)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .client(client)
-        .build()
-
-    val service: Service = retrofit.create(Service::class.java)
+    val service: Service = Api.retrofit.create(Service::class.java)
 }

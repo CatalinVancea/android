@@ -6,6 +6,12 @@
     app:startDestination="@+id/StudentListFragment">
 
     <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.ubb_pdm.catalin_vancea.auth.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/StudentListFragment"
         android:name="com.ubb_pdm.catalin_vancea.todo.students.StudentListFragment"
         android:label="@string/first_fragment_label"
@@ -15,6 +21,7 @@
             android:id="@+id/action_StudentListFragment_to_StudentEditFragment"
             app:destination="@id/StudentEditFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/StudentEditFragment"
         android:name="com.ubb_pdm.catalin_vancea.todo.student.StudentEditFragment"

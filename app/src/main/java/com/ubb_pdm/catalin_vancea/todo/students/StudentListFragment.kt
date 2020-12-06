@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.ubb_pdm.catalin_vancea.R
+import com.ubb_pdm.catalin_vancea.auth.data.AuthRepository
 import com.ubb_pdm.catalin_vancea.core.TAG
 import kotlinx.android.synthetic.main.fragment_student_list.*
 
@@ -33,6 +34,12 @@ class StudentListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.v(TAG, "onActivityCreated")
+
+        if (!AuthRepository.isLoggedIn) {
+            findNavController().navigate(R.id.fragment_login)
+            return;
+        }
+
         setupStudentList()
         fab.setOnClickListener {
             Log.v(TAG, "add new student")
@@ -59,7 +66,7 @@ class StudentListFragment : Fragment() {
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
             }
         })
-        studentsModel.loadStudents()
+        studentsModel.refresh()
     }
 
     override fun onDestroy() {
